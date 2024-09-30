@@ -1,21 +1,29 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import { Container } from 'semantic-ui-react';
 import { Hutba } from '../models/hutba';
 import NavBar from './NavBar';
 import HutbaDashboard from '../../features/hutbe/dashboard/HutbaDashboard';
 import {v4 as uuid} from 'uuid';
+import agent from '../api/agent';
+import LoadingComponent from './LoadingComponent';
 
 function App() {
   const [hutbe, setHutbe] = useState<Hutba[]>([]);
   const [selectedHutba, setSelectedHutba] = useState<Hutba | undefined>(undefined);
   const [editMode, setEditMode] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
-    axios.get<Hutba[]>('http://localhost:5000/api/hutbe')
-      .then(response => {
-        setHutbe(response.data);
+    agent.Hutbe.list().then(response => {
+      let hutbe: Hutba[] = [];
+      response.forEach(hutba => {
+        hutba.postedDate = hutba.postedDate.split('T')[0];
+        hutbe.push(hutba);
       })
+      setHutbe(hutbe);
+      setLoading(false);
+    })
   }, [])
 
   function handleSelectHutba(id: string) {
@@ -36,16 +44,34 @@ function App() {
   }
 
   function handleCreateOrEditHutba(hutba: Hutba) {
-    hutba.id
-      ? setHutbe([...hutbe.filter(x => x.id !== hutba.id), hutba])
-      : setHutbe([...hutbe, {...hutba, id: uuid()}]);
-    setEditMode(false);
-    setSelectedHutba(hutba);
+    setSubmitting(true);
+    if (hutba.id) {
+      agent.Hutbe.update(hutba).then(() => {
+        setHutbe([...hutbe.filter(x => x.id !== hutba.id), hutba])
+        setSelectedHutba(hutba);
+        setEditMode(false);
+        setSubmitting(false);
+      })
+    } else {
+      hutba.id = uuid();
+      agent.Hutbe.create(hutba).then(() => {
+        setHutbe([...hutbe, hutba])
+        setSelectedHutba(hutba);
+        setEditMode(false);
+        setSubmitting(false);
+      })
+    }
   }
 
   function handleDeleteHutba(id: string) {
-    setHutbe([...hutbe.filter(x => x.id !== id)])
+    setSubmitting(true);
+    agent.Hutbe.delete(id).then(() => {
+      setHutbe([...hutbe.filter(x => x.id !== id)])
+      setSubmitting(false);
+    })
   }
+
+  if (loading) return <LoadingComponent content='Učitavanje aplikacije...' />
 
   return (
     <>
@@ -61,6 +87,7 @@ function App() {
         closeForm={handleFormClose}
         createOrEdit={handleCreateOrEditHutba}
         deleteHutba={handleDeleteHutba}
+        submitting={submitting}
       />
       </Container>
     </>

@@ -6,9 +6,10 @@ interface Props {
     hutba: Hutba | undefined;
     closeForm: () => void;
     createOrEdit: (hutba: Hutba) => void;
+    submitting: boolean;
 }
 
-export default function HutbaForm({hutba: selectedHutba, closeForm, createOrEdit}: Props) {
+export default function HutbaForm({hutba: selectedHutba, closeForm, createOrEdit, submitting}: Props) {
 
     const initialState = selectedHutba ?? {
         id: '',
@@ -38,9 +39,9 @@ export default function HutbaForm({hutba: selectedHutba, closeForm, createOrEdit
                 <Form.TextArea placeholder='Opis' value={hutba.description} name='description' onChange={handleInputChange} />
                 <Form.Input placeholder='Slika' value={hutba.pictureUrl} name='pictureUrl' onChange={handleInputChange} />
                 <Form.Input placeholder='Autor' value={hutba.author} name='author' onChange={handleInputChange} />
-                <Form.Input placeholder='Datum' value={hutba.postedDate} name='postedDate' onChange={handleInputChange} />
+                <Form.Input type="date" placeholder='Datum' value={hutba.postedDate} name='postedDate' onChange={handleInputChange} />
                 <Form.Input placeholder='Pregledi' value={hutba.views} name='views' onChange={handleInputChange} />
-                <Button floated="right" positive type="submit" content='Potvrdi'/>
+                <Button loading={submitting} floated="right" positive type="submit" content='Potvrdi'/>
                 <Button onClick={closeForm} floated="right" type="button" content='Otkaži'/> 
             </Form>
         </Segment>

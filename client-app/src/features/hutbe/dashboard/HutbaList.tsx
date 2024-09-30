@@ -1,13 +1,22 @@
 import { Button, Item, Label, Segment } from "semantic-ui-react";
 import { Hutba } from "../../../app/models/hutba";
+import { SyntheticEvent, useState } from "react";
 
 interface Props {
     hutbe: Hutba[];
     selectHutba: (id: string) => void;
     deleteHutba: (id: string) => void;
+    submitting: boolean;
 }
 
-export default function HutbaList({ hutbe, selectHutba, deleteHutba }: Props) {
+export default function HutbaList({ hutbe, selectHutba, deleteHutba, submitting }: Props) {
+    const [target, setTarget] = useState('');
+
+    function handleHutbaDelete(e: SyntheticEvent<HTMLButtonElement>, id: string) {
+        setTarget(e.currentTarget.name);
+        deleteHutba(id);
+    }
+
     return (
 
         <Segment>
@@ -22,7 +31,14 @@ export default function HutbaList({ hutbe, selectHutba, deleteHutba }: Props) {
                                 <div>{hutba.author}, {hutba.views}</div>
                             </Item.Description>
                             <Item.Extra>
-                            <Button onClick={() => deleteHutba(hutba.id)} floated="right" content='Izbriši' color="red" />
+                            <Button 
+                                name={hutba.id}
+                                loading={submitting && target === hutba.id}
+                                onClick={(e) => handleHutbaDelete(e, hutba.id)} 
+                                floated="right" 
+                                content='Izbriši' 
+                                color="red" 
+                            />
                                 <Button onClick={() => selectHutba(hutba.id)} floated="right" content='Otvori' color="blue" />
                                 <Label basic content={hutba.pictureUrl}/>
                             </Item.Extra>

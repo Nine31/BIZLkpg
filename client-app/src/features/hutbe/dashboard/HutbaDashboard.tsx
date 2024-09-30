@@ -14,16 +14,18 @@ interface Props {
     closeForm: () => void;
     createOrEdit: (hutba: Hutba) => void;
     deleteHutba: (id: string) => void;
+    submitting: boolean;
 }
 
 export default function HutbaDashboard({hutbe, selectedHutba, selectHutba, cancelSelectHutba, 
-        editMode, openForm, closeForm, createOrEdit, deleteHutba}: Props) {
+        editMode, openForm, closeForm, createOrEdit, deleteHutba, submitting}: Props) {
     return (
         <Grid>
             <Grid.Column width='10'>
                 <HutbaList hutbe={hutbe} 
                     selectHutba={selectHutba} 
-                    deleteHutba={deleteHutba}    
+                    deleteHutba={deleteHutba} 
+                    submitting={submitting}   
                 />
             </Grid.Column>
             <Grid.Column width='6'>
@@ -34,7 +36,12 @@ export default function HutbaDashboard({hutbe, selectedHutba, selectHutba, cance
                     openForm={openForm}    
                 />}
                 {editMode &&
-                <HutbaForm closeForm={closeForm} hutba={selectedHutba} createOrEdit={createOrEdit}/>}
+                <HutbaForm 
+                    closeForm={closeForm} 
+                    hutba={selectedHutba} 
+                    createOrEdit={createOrEdit}
+                    submitting={submitting}
+                />}
             </Grid.Column>
         </Grid>
     )

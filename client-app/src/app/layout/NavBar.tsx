@@ -12,7 +12,7 @@ export default function NavBar({openForm}: Props) {
     // Function to handle scroll event
     const handleScroll = () => {
         const offset = window.scrollY;
-        if (offset > 200) { // You can adjust this value based on your layout
+        if (offset > 200) {
             setIsSticky(true);
         } else {
             setIsSticky(false);

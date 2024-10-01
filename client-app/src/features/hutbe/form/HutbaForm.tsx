@@ -1,15 +1,12 @@
 import { Button, Form, Segment } from "semantic-ui-react";
-import { Hutba } from "../../../app/models/hutba";
 import { ChangeEvent, useState } from "react";
+import { useStore } from "../../../app/stores/store";
+import { observer } from "mobx-react-lite";
 
-interface Props {
-    hutba: Hutba | undefined;
-    closeForm: () => void;
-    createOrEdit: (hutba: Hutba) => void;
-    submitting: boolean;
-}
+export default observer(function HutbaForm() {
 
-export default function HutbaForm({hutba: selectedHutba, closeForm, createOrEdit, submitting}: Props) {
+    const {hutbaStore} = useStore();
+    const {selectedHutba, closeForm, createHutba, updateHutba, loading} = hutbaStore;
 
     const initialState = selectedHutba ?? {
         id: '',
@@ -24,7 +21,7 @@ export default function HutbaForm({hutba: selectedHutba, closeForm, createOrEdit
     const [hutba, setHutba] = useState(initialState);
 
     function handleSubmit() {
-        createOrEdit(hutba);
+        hutba.id ? updateHutba(hutba) : createHutba(hutba);
     }
 
     function handleInputChange(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
@@ -41,9 +38,9 @@ export default function HutbaForm({hutba: selectedHutba, closeForm, createOrEdit
                 <Form.Input placeholder='Autor' value={hutba.author} name='author' onChange={handleInputChange} />
                 <Form.Input type="date" placeholder='Datum' value={hutba.postedDate} name='postedDate' onChange={handleInputChange} />
                 <Form.Input placeholder='Pregledi' value={hutba.views} name='views' onChange={handleInputChange} />
-                <Button loading={submitting} floated="right" positive type="submit" content='Potvrdi'/>
+                <Button loading={loading} floated="right" positive type="submit" content='Potvrdi'/>
                 <Button onClick={closeForm} floated="right" type="button" content='Otkaži'/> 
             </Form>
         </Segment>
     )
-}
+})

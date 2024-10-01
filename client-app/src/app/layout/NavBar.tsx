@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
 import { Button, Container, Menu } from "semantic-ui-react";
+import { useStore } from "../stores/store";
 
-interface Props {
-    openForm: () => void;
-}
-
-export default function NavBar({openForm}: Props) {
-
+export default function NavBar() {
+    
+    const {hutbaStore} = useStore();
     const [isSticky, setIsSticky] = useState(false);
 
     // Function to handle scroll event
@@ -35,20 +33,20 @@ export default function NavBar({openForm}: Props) {
 
             <Menu fixed={isSticky ? 'top' : undefined} className={`navbar ${isSticky ? 'sticky' : ''}`}>
                 <Container>
-                <Menu.Item name="Početna" icon='home' />
-                <Menu.Item name="Hutbe" icon='bullhorn' />
-                <Menu.Item name="Vijesti" icon='newspaper' />
-                <Menu.Item name="Događaji" icon='calendar alternate' />
-                <Menu.Item name="Aktivnosti" icon='tasks' />
-                <Menu.Item name="Vakuf" icon='university' />
-                <Menu.Item name="Ajeti" icon='book' />
-                <Menu.Item name="Hadisi" icon='quote left' />
-                <Menu.Item name="Dženaze" icon='leaf' />
-                <Menu.Item name="O nama" icon='info circle' />
-                <Menu.Item name="Kontakt" icon='phone' />
-                <Menu.Item name="Kalendar" icon='calendar' />
+                    <Menu.Item name="Početna" icon='home' />
+                    <Menu.Item name="Hutbe" icon='bullhorn' />
+                    <Menu.Item name="Vijesti" icon='newspaper' />
+                    <Menu.Item name="Događaji" icon='calendar alternate' />
+                    <Menu.Item name="Aktivnosti" icon='tasks' />
+                    <Menu.Item name="Vakuf" icon='university' />
+                    <Menu.Item name="Ajeti" icon='book' />
+                    <Menu.Item name="Hadisi" icon='quote left' />
+                    <Menu.Item name="Dženaze" icon='leaf' />
+                    <Menu.Item name="O nama" icon='info circle' />
+                    <Menu.Item name="Kontakt" icon='phone' />
+                    <Menu.Item name="Kalendar" icon='calendar' />
                     <Menu.Item>
-                        <Button onClick={openForm} positive content='Kreiraj hutbu' />
+                        <Button onClick={() => hutbaStore.openForm()} positive content='Kreiraj hutbu' />
                     </Menu.Item>
                 </Container>
             </Menu>

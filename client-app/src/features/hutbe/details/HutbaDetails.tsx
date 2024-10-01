@@ -1,16 +1,19 @@
 import { Button, Card } from "semantic-ui-react";
-import { Hutba } from "../../../app/models/hutba";
+import { useStore } from "../../../app/stores/store";
+import LoadingComponent from "../../../app/layout/LoadingComponent";
 
-interface Props {
-    hutba: Hutba;
-    cancelSelectHutba: () => void;
-    openForm: (id: string) => void;
-}
 
-export default function HutbaDetails({hutba, cancelSelectHutba, openForm}: Props) {
+export default function HutbaDetails() {
+
+    const {hutbaStore} = useStore();
+    const {selectedHutba: hutba, openForm, cancelSelectHutba} = hutbaStore;
+
+    if (!hutba) return <LoadingComponent />;
+
     return (
         <Card fluid>
-            <img src={`/assets/Hutba_Slike/Hutba-1.jpg`} />
+            {/* <img src={`/assets/Hutba_Slike/Hutba-1.jpg`} /> */}
+            <img src={hutba.pictureUrl}/> 
             <Card.Content>
                 <Card.Header>{hutba.title}</Card.Header>
                 <Card.Meta>

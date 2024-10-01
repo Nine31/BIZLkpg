@@ -1,15 +1,12 @@
 import { Button, Item, Label, Segment } from "semantic-ui-react";
-import { Hutba } from "../../../app/models/hutba";
 import { SyntheticEvent, useState } from "react";
+import { useStore } from "../../../app/stores/store";
+import { observer } from "mobx-react-lite";
 
-interface Props {
-    hutbe: Hutba[];
-    selectHutba: (id: string) => void;
-    deleteHutba: (id: string) => void;
-    submitting: boolean;
-}
+export default observer(function HutbaList() {
+    const {hutbaStore} = useStore();
+    const {deleteHutba, hutbeByDate, loading} = hutbaStore;
 
-export default function HutbaList({ hutbe, selectHutba, deleteHutba, submitting }: Props) {
     const [target, setTarget] = useState('');
 
     function handleHutbaDelete(e: SyntheticEvent<HTMLButtonElement>, id: string) {
@@ -21,7 +18,7 @@ export default function HutbaList({ hutbe, selectHutba, deleteHutba, submitting 
 
         <Segment>
             <Item.Group divided>
-                {hutbe.map(hutba => (
+                {hutbeByDate.map(hutba => (
                     <Item key={hutba.id}>
                         <Item.Content>
                             <Item.Header as='a'>{hutba.title}</Item.Header>
@@ -33,13 +30,13 @@ export default function HutbaList({ hutbe, selectHutba, deleteHutba, submitting 
                             <Item.Extra>
                             <Button 
                                 name={hutba.id}
-                                loading={submitting && target === hutba.id}
+                                loading={loading && target === hutba.id}
                                 onClick={(e) => handleHutbaDelete(e, hutba.id)} 
                                 floated="right" 
                                 content='Izbriši' 
                                 color="red" 
                             />
-                                <Button onClick={() => selectHutba(hutba.id)} floated="right" content='Otvori' color="blue" />
+                                <Button onClick={() => hutbaStore.selectHutba(hutba.id)} floated="right" content='Otvori' color="blue" />
                                 <Label basic content={hutba.pictureUrl}/>
                             </Item.Extra>
                         </Item.Content>
@@ -48,4 +45,4 @@ export default function HutbaList({ hutbe, selectHutba, deleteHutba, submitting 
             </Item.Group>
         </Segment>
     )
-}
+})

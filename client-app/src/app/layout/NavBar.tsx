@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import { Button, Container, Menu } from "semantic-ui-react";
-import { useStore } from "../stores/store";
+import { NavLink } from "react-router-dom";
 
 export default function NavBar() {
-    
-    const {hutbaStore} = useStore();
+
     const [isSticky, setIsSticky] = useState(false);
 
     // Function to handle scroll event
@@ -28,13 +27,13 @@ export default function NavBar() {
     return (
         <>
             <div className="logo-container">
-                <img src="/assets/Hutba_Slike/IZBULS.png" alt="logo" className="slika"/>
+                <a href="/"><img src="/assets/Hutba_Slike/IZBULS.png" alt="logo" className="slika"/></a>
             </div>
 
             <Menu fixed={isSticky ? 'top' : undefined} className={`navbar ${isSticky ? 'sticky' : ''}`}>
                 <Container>
-                    <Menu.Item name="Početna" icon='home' />
-                    <Menu.Item name="Hutbe" icon='bullhorn' />
+                    <Menu.Item as={NavLink} to='/' name="Početna" icon='home' />
+                    <Menu.Item as={NavLink} to='hutbe' name="Hutbe" icon='bullhorn' />
                     <Menu.Item name="Vijesti" icon='newspaper' />
                     <Menu.Item name="Događaji" icon='calendar alternate' />
                     <Menu.Item name="Aktivnosti" icon='tasks' />
@@ -46,7 +45,7 @@ export default function NavBar() {
                     <Menu.Item name="Kontakt" icon='phone' />
                     <Menu.Item name="Kalendar" icon='calendar' />
                     <Menu.Item>
-                        <Button onClick={() => hutbaStore.openForm()} positive content='Kreiraj hutbu' />
+                        <Button className="create-hutba" as={NavLink} to='kreiraj-hutbu' content='Kreiraj hutbu' />
                     </Menu.Item>
                 </Container>
             </Menu>

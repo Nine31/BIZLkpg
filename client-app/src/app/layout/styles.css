@@ -1,17 +1,4 @@
-/* .moon {
-  position: absolute;
-  top: 10%;
-  color: rgb(0, 117, 60);
-}
-
-.star {
-  position: absolute;
-  top: 14%;
-  left: 12%;
-  color: rgb(195, 167, 6);
-} */
-
- .logo-container {
+.logo-container {
   text-align: center;
   padding-top: 30px;
   padding-bottom: 20px;
@@ -23,6 +10,8 @@
 }
 
 .navbar {
+  font-family: monospace !important;
+  background-color: rgba(0, 117, 60, 0.05) !important;
   border: 1px solid #e8e7e7 !important;
   box-shadow: 5px 5px 5px -3px rgba(0, 117, 60, 0.75) !important;
   -webkit-box-shadow: 5px 5px 5px -3px rgba(0, 117, 60, 0.75) !important;
@@ -33,7 +22,7 @@
 }
 
 .hutba {
-  padding-top: 120px !important;
+  padding-top: 10px !important;
   
 }
 
@@ -42,5 +31,16 @@
   top: 0;
   width: 100%;
   z-index: 1000 !important;
-  box-shadow: 0 4px 2px -2px gray; /* Lite skugga för att markera den fixerade effekten */
+  box-shadow: 0 4px 2px -2px gray;
+}
+
+.item.active {
+  font-weight: 700 !important;
+  color: #FFF !important;
+  background-color: rgba(0, 117, 60) !important;
+}
+
+.create-hutba {
+  background-color: rgba(0, 117, 60) !important;
+  color: #FFF !important;
 }

@@ -1,14 +1,22 @@
 import { Button, Card } from "semantic-ui-react";
 import { useStore } from "../../../app/stores/store";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
+import { observer } from "mobx-react-lite";
+import { Link, useParams } from "react-router-dom";
+import { useEffect } from "react";
 
 
-export default function HutbaDetails() {
+export default observer(function HutbaDetails() {
 
     const {hutbaStore} = useStore();
-    const {selectedHutba: hutba, openForm, cancelSelectHutba} = hutbaStore;
+    const {selectedHutba: hutba, loadHutba, loadingInitial} = hutbaStore;
+    const {id} = useParams();
 
-    if (!hutba) return <LoadingComponent />;
+    useEffect(() => {
+        if (id) loadHutba(id);
+    }, [id, loadHutba])
+
+    if (loadingInitial || !hutba) return <LoadingComponent />;
 
     return (
         <Card fluid>
@@ -25,10 +33,10 @@ export default function HutbaDetails() {
             </Card.Content>
             <Card.Content extra>
                 <Button.Group widths='12'>
-                    <Button onClick={() => openForm(hutba.id)} basic color="blue" content='Izmjeni'/>
-                    <Button onClick={cancelSelectHutba} basic color="grey" content='Otkaži'/>
+                    <Button as={Link} to={`/azuriraj-hutbu/${hutba.id}`} basic color="blue" content='Izmjeni'/>
+                    <Button as={Link} to={'/hutbe'} basic color="grey" content='Otkaži'/>
                 </Button.Group>
             </Card.Content>
         </Card>
     )
-}
+})

@@ -2,6 +2,7 @@ import { Button, Item, Label, Segment } from "semantic-ui-react";
 import { SyntheticEvent, useState } from "react";
 import { useStore } from "../../../app/stores/store";
 import { observer } from "mobx-react-lite";
+import { Link } from "react-router-dom";
 
 export default observer(function HutbaList() {
     const {hutbaStore} = useStore();
@@ -36,7 +37,7 @@ export default observer(function HutbaList() {
                                 content='Izbriši' 
                                 color="red" 
                             />
-                                <Button onClick={() => hutbaStore.selectHutba(hutba.id)} floated="right" content='Otvori' color="blue" />
+                                <Button as={Link} to={`/hutbe/${hutba.id}`} floated="right" content='Otvori' color="blue" />
                                 <Label basic content={hutba.pictureUrl}/>
                             </Item.Extra>
                         </Item.Content>

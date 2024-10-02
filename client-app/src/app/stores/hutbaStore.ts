@@ -8,7 +8,7 @@ export default class HutbaStore {
     selectedHutba?: Hutba | undefined = undefined;
     editMode = false;
     loading = false;
-    loadingInitial = true;
+    loadingInitial = false;
 
     constructor() {
         makeAutoObservable(this)
@@ -19,11 +19,11 @@ export default class HutbaStore {
     }
 
     loadHutbe = async () => {
+        this.setLoadingInitial(true);
         try {
             const hutbe = await agent.Hutbe.list();
                 hutbe.forEach(hutba => {
-                    hutba.postedDate = hutba.postedDate.split('T')[0];
-                    this.hutbaRegistry.set(hutba.id, hutba);
+                    this.sethutba(hutba);
                 })
                 this.setLoadingInitial(false);
         } catch (error) {
@@ -32,25 +32,38 @@ export default class HutbaStore {
         }
     }
 
+    loadHutba = async (id: string) => {
+        let hutba = this.getHutba(id);
+        if (hutba) {
+            this.selectedHutba = hutba;
+            return hutba;
+        }
+        else {
+            this.setLoadingInitial(true);
+            try {
+                hutba = await agent.Hutbe.details(id);
+                this.sethutba(hutba);
+                runInAction(() => this.selectedHutba = hutba);
+                this.setLoadingInitial(false);
+                return hutba;
+            } catch (error) {
+                console.log(error);
+                this.setLoadingInitial(false);
+            }
+        }
+    }
+
+    private sethutba = (hutba: Hutba) => {
+        hutba.postedDate = hutba.postedDate.split('T')[0];
+        this.hutbaRegistry.set(hutba.id, hutba);
+    }
+
+    private getHutba = (id: string) => {
+        return this.hutbaRegistry.get(id);
+    }
+
     setLoadingInitial = (state: boolean) => {
         this.loadingInitial = state;
-    }
-
-    selectHutba = (id: string) => {
-        this.selectedHutba = this.hutbaRegistry.get(id);
-    }
-
-    cancelSelectHutba = () => {
-        this.selectedHutba = undefined;
-    }
-
-    openForm= (id?: string) => {
-        id ? this.selectHutba(id) : this.cancelSelectHutba();
-        this.editMode = true;
-    }
-
-    closeForm = () => {
-        this.editMode = false;
     }
 
     createHutba = async (hutba: Hutba) => {
@@ -96,7 +109,6 @@ export default class HutbaStore {
             await agent.Hutbe.delete(id);
             runInAction(() => {
                 this.hutbaRegistry.delete(id);
-                if (this.selectedHutba?.id === id) this.cancelSelectHutba();
                 this.loading = false;
             })
         } catch (error) {

@@ -6,10 +6,10 @@ export default function NavBar() {
 
     const [isSticky, setIsSticky] = useState(false);
 
-    // Function to handle scroll event
     const handleScroll = () => {
         const offset = window.scrollY;
-        if (offset > 200) {
+        // setIsSticky(offset > 180);
+        if (offset > 180) {
             setIsSticky(true);
         } else {
             setIsSticky(false);

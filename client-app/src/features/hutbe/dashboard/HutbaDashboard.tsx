@@ -1,4 +1,4 @@
-import { Grid } from "semantic-ui-react";
+import { Grid, Segment } from "semantic-ui-react";
 import HutbaList from "./HutbaList";
 import { useStore } from "../../../app/stores/store";
 import { observer } from "mobx-react-lite";
@@ -24,12 +24,15 @@ export default observer(function HutbaDashboard() {
 
     return (
         <Grid>
-            <Grid.Column width='10'>
+            <Grid.Column width={13}>
                 <HutbaList />
             </Grid.Column>
-            <Grid.Column width='6'>
-                <h2>Sortiraj hutbe:</h2>
+            <Grid.Column width={3}>
+                <Segment>
+                    <h3>Aktuelne Vijesti</h3>
+                    <p>Ovdje će biti prikazane aktuelne vijesti...</p>
+                </Segment>
             </Grid.Column>
         </Grid>
-    )
+    );
 })

@@ -1,9 +1,13 @@
-import { Button, Card } from "semantic-ui-react";
+import { Grid } from "semantic-ui-react";
 import { useStore } from "../../../app/stores/store";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
 import { observer } from "mobx-react-lite";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useEffect } from "react";
+import HutbaDetailedHeader from "./HutbaDetailedHeader";
+import HutbaDetailedSidebar from "./HutbaDetailedSidebar";
+import HutbaDetailedInfo from "./HutbaDetailedInfo";
+import HutbaDetailedContent from "./HutbaDetailedContent";
 
 
 export default observer(function HutbaDetails() {
@@ -19,24 +23,15 @@ export default observer(function HutbaDetails() {
     if (loadingInitial || !hutba) return <LoadingComponent />;
 
     return (
-        <Card fluid>
-            {/* <img src={`/assets/Hutba_Slike/Hutba-1.jpg`} /> */}
-            <img src={hutba.pictureUrl}/> 
-            <Card.Content>
-                <Card.Header>{hutba.title}</Card.Header>
-                <Card.Meta>
-                    <span>{hutba.postedDate}</span>
-                </Card.Meta>
-                <Card.Description>
-                    {hutba.description}
-                </Card.Description>
-            </Card.Content>
-            <Card.Content extra>
-                <Button.Group widths='12'>
-                    <Button as={Link} to={`/azuriraj-hutbu/${hutba.id}`} basic color="blue" content='Izmjeni'/>
-                    <Button as={Link} to={'/hutbe'} basic color="grey" content='Otkaži'/>
-                </Button.Group>
-            </Card.Content>
-        </Card>
+        <Grid>
+            <Grid.Column width={10}>
+                <HutbaDetailedHeader hutba={hutba}/>
+                <HutbaDetailedInfo hutba={hutba}/>
+                <HutbaDetailedContent hutba={hutba}/>
+            </Grid.Column>
+            <Grid.Column width={6}>
+                <HutbaDetailedSidebar />
+            </Grid.Column>
+        </Grid>
     )
 })

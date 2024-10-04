@@ -11,36 +11,271 @@
 
 .navbar {
   font-family: monospace !important;
-  background-color: rgba(0, 117, 60, 0.05) !important;
+  position: sticky;
+  background-color: rgba(0, 117, 60, 0.10) !important;
   border: 1px solid #e8e7e7 !important;
   box-shadow: 5px 5px 5px -3px rgba(0, 117, 60, 0.75) !important;
   -webkit-box-shadow: 5px 5px 5px -3px rgba(0, 117, 60, 0.75) !important;
   -moz-box-shadow: 5px 5px 5px -3px rgba(0, 117, 60, 0.75) !important;
-  z-index: 1000;
+  z-index: 1000 !important;
   height: 50px;
   cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
 }
 
 .hutba {
   padding-top: 10px !important;
-  
 }
 
 .sticky {
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 1000 !important;
+  z-index: 2000 !important;
+  background-color: rgba(128, 128, 128, 0.55);
+  transition: background-color 0.3s ease;
   box-shadow: 0 4px 2px -2px gray;
 }
 
 .item.active {
+  font-family: monospace !important;
   font-weight: 700 !important;
   color: #FFF !important;
   background-color: rgba(0, 117, 60) !important;
 }
 
 .create-hutba {
+  font-family: monospace !important;
   background-color: rgba(0, 117, 60) !important;
   color: #FFF !important;
 }
+
+.hutba-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.hutba-card {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  height: 100%;
+  z-index: 1 !important;
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  box-shadow: 0px 0px 5px -3px rgba(0, 117, 60, 0.75) !important;
+  -webkit-box-shadow: 0px 0px 5px -3px rgba(0, 117, 60, 0.75) !important;
+  -moz-box-shadow: 0px 0px 5px -3px rgba(0, 117, 60, 0.75) !important;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.hutba-card:hover {
+  transform: rotate(-2deg) scale(1.05);
+  box-shadow: 0px 0px 5px -3px rgba(0, 117, 60, 0.75) !important;
+}
+
+.hutba-title {
+  text-transform: uppercase;
+  font-family: monospace !important;
+  font-size: 15px;
+  font-weight: 900;
+  color: #000;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1; 
+  overflow: hidden;
+  text-overflow: ellipsis; 
+  max-height: 3em; 
+  margin-bottom: 20px;
+  line-clamp: 1; 
+  line-height: 1.3em;
+  cursor: pointer;
+}
+
+.hutba-button {
+  display: flex;
+  justify-content:space-between; 
+  margin-top: 10px;
+}
+
+/* .citaj {
+  font-family: monospace !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+}
+
+.izbrisi {
+  font-family: monospace !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+} */
+
+.hutba-date {
+  font-family: monospace !important;
+  color: rgb(147, 147, 148, 0.95);
+  font-size: 15px;
+  font-weight: 200 !important;
+  margin-bottom: 80px;
+}
+
+.hutba-card:hover .hutba-title, 
+.hutba-card:hover .hutba-date {
+  filter: none;
+}
+
+.ui.grid > .row {
+  column-gap: 5px; 
+  row-gap: 30px;
+}
+
+.content-header {
+  font-family: monospace;
+  color: #FFF;
+}
+
+.segment-content {
+  background-color: rgb(244, 250, 247) !important;
+  border: none
+}
+
+.segment-header {
+  font-family: monospace !important;
+  text-align: center !important;
+  font-size: 20px !important;
+}
+
+.description-content {
+  font-family: monospace;
+  line-height: 1.5em;
+  font-size: 16px;
+}
+
+.fb {
+  background: linear-gradient(45deg, #3b5998, #4c70ba);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 40px !important;
+  padding-top: 10px;
+  display: inline-block;
+  cursor: pointer;
+  transition: transform 0.3s ease, filter 0.2s ease;
+}
+
+.ig {
+  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 40px !important;
+  padding-top: 10px;
+  display: inline-block;
+  cursor: pointer;
+  transition: transform 0.3s ease, filter 0.2s ease;
+}
+
+.li {
+  background: linear-gradient(45deg, #0077b5, #00a0dc);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 40px !important;
+  padding-top: 10px;
+  display: inline-block;
+  cursor: pointer;
+  transition: transform 0.3s ease, filter 0.2s ease;
+}
+
+.tw {
+  background: linear-gradient(45deg, #1da1f2, #0d8ddc);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 40px !important;
+  padding-top: 10px;
+  display: inline-block;
+  cursor: pointer;
+  transition: transform 0.3s ease, filter 0.2s ease;
+}
+
+.podijeli-hutbu {
+  font-family: monospace;
+  font-size: 17px;
+  font-weight: 800;
+  color: #000;
+}
+
+.icon:hover {
+  filter: brightness(1.2);
+  transform: scale(1.1); 
+}
+
+.icon-info {
+  color: rgba(0, 117, 60);
+}
+
+.place-info {
+  font-family: monospace;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.datum-info {
+  font-family: monospace;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.vrijeme-info {
+  font-family: monospace;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.segment-sidebar {
+  background-color: rgba(0, 117, 60) !important;
+}
+
+.title-sidebar {
+  font-family: monospace !important;
+  font-size: 18px !important;
+}
+
+.label-sidebar {
+  font-family: monospace;
+  font-size: 11px !important;
+  background: rgba(0, 117, 60) !important;
+  color: #FFF !important;
+}
+
+.title-list-header {
+  font-family: monospace !important;
+  font-size: 13px;
+  margin-top: 25px !important;
+}
+
+.link-title {
+  color: #000;
+}
+
+.date-list-description {
+  font-family: monospace;
+  font-size: 11px;
+  height: 0px;
+}
+
+.list {
+  height: 270px;
+}
+
+.img-aktuelno {
+  margin-top: 25px !important;
+}
+
+.icon-views {
+  color: rgb(147, 147, 148);
+}
+

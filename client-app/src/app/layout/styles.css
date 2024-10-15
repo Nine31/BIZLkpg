@@ -11,9 +11,8 @@
 
 .navbar {
   font-family: monospace !important;
-  position: sticky;
   background-color: rgba(0, 117, 60, 0.10) !important;
-  border: 1px solid #e8e7e7 !important;
+  border: 1px solid #f1f0f0 !important;
   box-shadow: 5px 5px 5px -3px rgba(0, 117, 60, 0.75) !important;
   -webkit-box-shadow: 5px 5px 5px -3px rgba(0, 117, 60, 0.75) !important;
   -moz-box-shadow: 5px 5px 5px -3px rgba(0, 117, 60, 0.75) !important;
@@ -21,18 +20,58 @@
   height: 50px;
   cursor: pointer;
   transition: background-color 0.3s ease-in-out;
+  position: relative;
 }
 
-.hutba {
-  padding-top: 10px !important;
+.okvir {
+  width: 60%;
+  margin-left: 150px !important;
+  background-color: rgba(0, 117, 60, 0.02) !important;
+  border: 2px solid rgb(249, 250, 250) !important;
+  box-shadow: 5px 5px 5px -3px rgba(0, 117, 60, 0.75) !important;
+  -webkit-box-shadow: 5px 5px 5px -3px rgba(0, 117, 60, 0.75) !important;
+  -moz-box-shadow: 5px 5px 5px -3px rgba(0, 117, 60, 0.75) !important;
 }
+
+.potvrdi {
+  font-family: monospace !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  background-color: rgba(0, 117, 60) !important;
+  color: #FFF !important;
+}
+
+form input {
+  font-family: monospace !important;
+  font-size: 15px !important;
+  background-color: #FFF !important;
+  color: #000 !important;
+  border: 1px solid rgb(161, 161, 163) !important;
+}
+
+form textarea {
+  font-family: monospace !important;
+  border: 1px solid rgb(161, 161, 163) !important;
+}
+
+.otkazi {
+  font-family: monospace !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  background-color: #7c5e62 !important;
+  color: #FFF !important;
+}
+
+/* .hutba {
+  padding-top: 10px !important;
+} */
 
 .sticky {
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 2000 !important;
-  background-color: rgba(128, 128, 128, 0.55);
+  z-index: 1000 !important;
+  background-color: rgb(229, 247, 235) !important; ;
   transition: background-color 0.3s ease;
   box-shadow: 0 4px 2px -2px gray;
 }
@@ -245,7 +284,7 @@
 }
 
 .label-sidebar {
-  font-family: monospace;
+  font-family: monospace !important;
   font-size: 11px !important;
   background: rgba(0, 117, 60) !important;
   color: #FFF !important;
@@ -253,12 +292,17 @@
 
 .title-list-header {
   font-family: monospace !important;
-  font-size: 13px;
-  margin-top: 25px !important;
+  font-size: 12px;
+  margin-top: 22px !important;
+  width: 280px;
 }
 
 .link-title {
   color: #000;
+}
+
+.link-title:hover {
+  color: #1da1f2;
 }
 
 .date-list-description {
@@ -278,4 +322,66 @@
 .icon-views {
   color: rgb(147, 147, 148);
 }
+
+.kategorije {
+  font-family: monospace !important;
+  font-size: 22px !important;
+  color:rgba(0, 117, 60) !important;
+}
+
+.kategorije-link {
+  font-family: monospace;
+  font-size: 14px;
+  font-weight: 300;
+  color: #7c5e62 !important;
+}
+
+.kategorije-text {
+  color:burlywood;
+  line-height: 20px;
+}
+
+.kategorije-text:hover {
+  color: #1da1f2;
+}
+
+h2 {
+  font-family: monospace !important;
+}
+
+.vijesti-u-kategoriji {
+  font-family: monospace !important;
+  font-size: 30px;
+  font-weight: 900;
+  color: rgba(0, 117, 60);
+}
+
+.istaknute-vijesti-rubrika {
+  font-family: monospace !important;
+  font-size: 18px !important;
+  text-align: center;
+  color: rgba(0, 117, 60) !important;
+  border-bottom: 2px solid rgba(0, 117, 60) !important;
+  padding-bottom: 10px !important;
+}
+
+.istaknute-vijesti-naslov {
+  font-family: monospace;
+  font-size: 11px;
+  color: #000;
+  line-height: 10px;
+  justify-content: space-between !important;
+}
+
+.istaknute-vijesti-naslov:hover {
+  color: #1da1f2;;
+}
+
+.istaknute-vijesti-datum {
+  font-family: monospace;
+  font-size: 11px;
+  
+}
+
+
 

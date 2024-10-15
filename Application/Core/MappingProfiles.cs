@@ -8,6 +8,7 @@ namespace Application.Core
         public MappingProfiles()
         {
             CreateMap<Hutba, Hutba>();
+            CreateMap<Vijesti, Vijesti>();
         }
     }
 }

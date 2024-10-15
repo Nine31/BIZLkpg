@@ -8,7 +8,7 @@ import { v4 as uuid } from 'uuid';
 
 export default observer(function HutbaForm() {
     const {hutbaStore} = useStore();
-    const {selectedHutba, createHutba, updateHutba, loading, loadHutba, loadingInitial} = hutbaStore;
+    const {createHutba, updateHutba, loading, loadHutba, loadingInitial} = hutbaStore;
     const {id} = useParams();
     const navigate = useNavigate();
 
@@ -44,16 +44,18 @@ export default observer(function HutbaForm() {
     if (loadingInitial) return <LoadingComponent content="Učitavanje aplikacije..."/>
 
     return (
-        <Segment clearing>
+        <Segment clearing className="okvir">
             <Form onSubmit={handleSubmit} autoComplete='off'>
                 <Form.Input placeholder='Rubrika' value={hutba.title} name='title' onChange={handleInputChange} />
-                <Form.TextArea placeholder='Opis' value={hutba.description} name='description' onChange={handleInputChange} />
-                <Form.Input placeholder='Slika' value={hutba.pictureUrl} name='pictureUrl' onChange={handleInputChange} />
-                <Form.Input placeholder='Autor' value={hutba.author} name='author' onChange={handleInputChange} />
-                <Form.Input type="date" placeholder='Datum' value={hutba.postedDate} name='postedDate' onChange={handleInputChange} />
-                <Form.Input placeholder='Pregledi' value={hutba.views} name='views' onChange={handleInputChange} />
-                <Button loading={loading} floated="right" positive type="submit" content='Potvrdi'/>
-                <Button as={Link} to='/hutbe' floated="right" type="button" content='Otkaži'/> 
+                <Form.TextArea placeholder='Opis hutbe...' value={hutba.description} name='description' onChange={handleInputChange} />
+                <Form.Input placeholder='Link slike' value={hutba.pictureUrl} name='pictureUrl' onChange={handleInputChange} />
+                <Form.Group widths='equal'>
+                    <Form.Input placeholder='Autor' value={hutba.author} name='author' onChange={handleInputChange} />
+                    <Form.Input type="date" placeholder='Datum' value={hutba.postedDate} name='postedDate' onChange={handleInputChange} />
+                </Form.Group>
+                <Form.Input disabled placeholder='Pregledi' value={hutba.views} name='views' onChange={handleInputChange} />
+                <Button className="potvrdi" loading={loading} floated="right" type="submit" content='Potvrdi'/>
+                <Button className="otkazi" as={Link} to='/hutbe' floated="right" type="button" content='Otkaži'/> 
             </Form>
         </Segment>
     )

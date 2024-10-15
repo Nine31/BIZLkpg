@@ -1,30 +1,31 @@
 import { observer } from "mobx-react-lite"
 import { Divider, Grid, Header, Icon, Segment } from "semantic-ui-react"
-import { Hutba } from "../../../app/models/hutba"
+import { Vijest } from "../../../app/models/vijest"
 
 interface Props {
-    hutba: Hutba
+    vijest: Vijest
 }
 
-export default observer(function HutbaDetailedContent({hutba}: Props) {
+export default observer(function VijestDetailedContent({vijest}: Props) {
     return (
         <>
-            <Segment className="segment-content"
+            {/* <Segment className="segment-content"
                 textAlign='center'
                 attached='top'
                 color="green"
                 style={{border: 'none'}}
             >
-                <Header className="segment-header">Hutba na dan: {hutba.postedDate}</Header>
-            </Segment>
-            <div>
+                
+            </Segment> */}
+            <Header className="segment-header">Nova vijest: {vijest.publishedDate}</Header>
+            <Segment>
                 <Grid>
                     <Grid.Column width={16}>
-                        <p className="description-content">{hutba.description}</p>
+                        <p className="description-content">{vijest.content}</p>
                     </Grid.Column>
                 </Grid>
                 <Divider style={{marginTop: 30}}></Divider>
-                <span className="podijeli-hutbu">Podijelite današnju hutbu na društvenim mrežama</span>
+                <span className="podijeli-hutbu">Podijelite ovu vijest na društvenim mrežama</span>
                 <Divider></Divider>
                 <div>
                 {/* Kod za trenutno dijenje na fb preko localhost */}
@@ -43,14 +44,14 @@ export default observer(function HutbaDetailedContent({hutba}: Props) {
 
                 {/* Kod za trenutno dijenje na linkedIn preko localhost */}
                 <a 
-                  href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(window.location.href)}&title=${encodeURIComponent(hutba?.title || 'Hutba')}`}
+                  href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(window.location.href)}&title=${encodeURIComponent(vijest?.title || 'Vijest')}`}
                   target="_blank" rel="noopener noreferrer">
                   <Icon name="linkedin" className="li" />
                 </a>
 
                 {/* Kod za trenutno dijenje na twitter preko localhost */}
                 <a 
-                  href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(hutba?.title || 'Hutba')}`}
+                  href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(vijest?.title || 'Vijest')}`}
                   target="_blank" rel="noopener noreferrer">
                   <Icon name="twitter" className="tw" />
                 </a>
@@ -59,7 +60,7 @@ export default observer(function HutbaDetailedContent({hutba}: Props) {
 
                    {/* Kod za dijelenje na fb kada budu aplikacija stavljena na internet */}
                    {/* <a
-                        href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&quote=${encodeURIComponent(hutbaTitle)}`}
+                        href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&quote=${encodeURIComponent(vijestTitle)}`}
                         target="_blank"
                         rel="noopener noreferrer"
                     >
@@ -86,14 +87,14 @@ export default observer(function HutbaDetailedContent({hutba}: Props) {
                     
                     {/* Kod za dijelenje na twitter kada budu aplikacija stavljena na internet */}
                     {/* <a
-                        href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(hutbaTitle)}`}
+                        href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(vijestTitle)}`}
                         target="_blank"
                         rel="noopener noreferrer"
                     >
                         <Icon name="twitter" className="tw" />
                     </a> */}
                 </div>
-            </div>
+            </Segment>
         </>
     )
 })

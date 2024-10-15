@@ -1,26 +1,23 @@
 import { observer } from "mobx-react-lite";
-import { Header, List, Segment, Image, Label } from "semantic-ui-react";
+import { Header, Image, Label, List, Segment } from "semantic-ui-react";
 import { useStore } from "../../../app/stores/store";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 
-export default observer(function HutbaDetailedSidebar() {
-    const {hutbaStore} = useStore();
-    const {hutbeByDate, selectedHutba, loadHutbe, loadingInitial} = hutbaStore;
+export default observer(function VijestDetailedSidebar() {
+    const {vijestStore} = useStore();
+    const {vijestiByDate, loadVijesti} = vijestStore;
 
     useEffect(() => {
-        if (hutbeByDate.length === 0) {
-            loadHutbe();
-        } 
-    }, [loadHutbe, hutbeByDate.length]);
+        if (vijestiByDate.length === 0) {
+            loadVijesti();
+        }
+    }, [loadVijesti, vijestiByDate.length]);
 
-    if (loadingInitial) return null; // Prikažite spinner ako se hutbe učitavaju
-
-    const latestHutbe = hutbeByDate
-        .filter(hutba => hutba.id !== selectedHutba?.id) // Izbacujemo trenutno otvorenu hutbu
-        .slice(0, 3); // Uzimamo tri najnovije hutbe osim trenutne
+    const latestVijesti = vijestiByDate.slice(0, 3);
 
     return (
+
         <>
             <Segment className="segment-sidebar"
                 textAlign='center'
@@ -29,32 +26,32 @@ export default observer(function HutbaDetailedSidebar() {
                 secondary
                 style={{border: 'none'}}
             >
-                <Header className="title-sidebar">3 posljednje hutbe</Header>
+                <Header className="title-sidebar">Posljednji članci</Header>
             </Segment>
             <Segment attached>
                 <List relaxed divided className="list">
-                    {latestHutbe.map(hutba => (
+                    {latestVijesti.map(vijest => (
                         <List.Item style={{position: 'relative'}} className="list-item">
                             <Label className="label-sidebar"
                                 style={{position: 'absolute'}}
                                 ribbon='right'
                                 color="green"
                             >
-                                Novo
+                                Istaknute vijesti
                             </Label>
                             <Image 
                                 size="tiny" 
-                                src={hutba.pictureUrl || '/assets/Hutba_Slike/Hutba-1.jpg'} className="img-aktuelno"
+                                src={vijest.pictureUrl || '/assets/Hutba_Slike/Hutba-1.jpg'} className="img-aktuelno"
                                 style={{ height: '50px', objectFit: 'cover' }}
                             />
                             <List.Content className="list-content">
                                 <List.Header className="title-list-header">
-                                    <Link to={`/hutbe/${hutba.id}`} className="link-title">
-                                        {hutba.title}
+                                    <Link to={`/vijesti/${vijest.id}`} className="link-title">
+                                        {vijest.title}
                                     </Link>
                                 </List.Header>
                                 <List.Description className="date-list-description">
-                                    {(hutba.postedDate)}
+                                    {(vijest.publishedDate)}
                                 </List.Description>
                             </List.Content>
                         </List.Item>

@@ -1,5 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import { Hutba } from "../models/hutba";
+import { Vijest } from "../models/vijest";
 
 const sleep = (delay: number) => {
     return new Promise((resolve) => {
@@ -36,8 +37,17 @@ const Hutbe = {
     delete: (id: string) => axios.delete<void>(`/hutbe/${id}`)
 }
 
+const Vijesti = {
+    list: () => requests.get<Vijest[]>('/vijesti'),
+    details: (id: string) => requests.get<Vijest>(`/vijesti/${id}`),
+    create: (vijest: Vijest) => axios.post<void>('/vijesti', vijest),
+    update: (vijest: Vijest) => axios.put<void>(`/vijesti/${vijest.id}`, vijest),
+    delete: (id: string) => axios.delete<void>(`/vijesti/${id}`)
+};
+
 const agent = {
-    Hutbe
+    Hutbe,
+    Vijesti
 }
 
 export default agent;

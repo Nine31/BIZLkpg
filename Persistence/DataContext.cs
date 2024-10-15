@@ -10,4 +10,5 @@ public class DataContext : DbContext
     }
 
     public DbSet<Hutba> Hutbas { get; set; }
+    public DbSet<Vijesti> Vijestis { get; set; }
 }

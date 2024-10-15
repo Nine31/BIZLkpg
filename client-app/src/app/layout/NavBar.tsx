@@ -34,7 +34,7 @@ export default function NavBar() {
                 <Container>
                     <Menu.Item as={NavLink} to='/' name="Početna" icon='home' />
                     <Menu.Item as={NavLink} to='hutbe' name="Hutbe" icon='bullhorn' />
-                    <Menu.Item name="Vijesti" icon='newspaper' />
+                    <Menu.Item as={NavLink} to='vijesti' name="Vijesti" icon='newspaper' />
                     <Menu.Item name="Događaji" icon='calendar alternate' />
                     <Menu.Item name="Aktivnosti" icon='tasks' />
                     <Menu.Item name="Vakuf" icon='university' />
@@ -46,6 +46,7 @@ export default function NavBar() {
                     <Menu.Item name="Kalendar" icon='calendar' />
                     <Menu.Item>
                         <Button className="create-hutba" as={NavLink} to='kreiraj-hutbu' content='Kreiraj hutbu' />
+                        <Button className="create-vijest" as={NavLink} to='kreiraj-vijest' content='Kreiraj vijest'/>
                     </Menu.Item>
                 </Container>
             </Menu>

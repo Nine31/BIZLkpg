@@ -5,28 +5,38 @@ import { v4 as uuid } from 'uuid';
 
 export default class HutbaStore {
     hutbaRegistry = new Map<string, Hutba>();
-    selectedHutba?: Hutba | undefined = undefined;
+    selectedHutba: Hutba | undefined = undefined;
     editMode = false;
     loading = false;
     loadingInitial = false;
 
     constructor() {
-        makeAutoObservable(this)
+        makeAutoObservable(this);
     }
 
     get hutbeByDate() {
-        return Array.from(this.hutbaRegistry.values()).sort((a, b) => Date.parse(a.postedDate) - Date.parse(b.postedDate));
+        return Array.from(this.hutbaRegistry.values()).sort((a, b) => 
+            new Date(b.postedDate).getTime() - new Date(a.postedDate).getTime()
+        );
     }
 
-    get groupedHutbe() {
-        return Object.entries(
-            this.hutbeByDate.reduce((hutbe, hutba) => {
-                const postedDate = hutba.postedDate
-                hutbe[postedDate] = hutbe[postedDate] ? [...hutbe[postedDate], hutba] : [hutba];
-                return hutbe;
-            }, {} as {[key: string]: Hutba[]})
-        )
+    loadLatestHutbe = () => {
+        return this.hutbeByDate.slice(0, 3);
     }
+
+    // get hutbeByDate() {
+    //     return Array.from(this.hutbaRegistry.values()).sort((a, b) => Date.parse(a.postedDate) - Date.parse(b.postedDate));
+    // }
+
+    // get groupedHutbe() {
+    //     return Object.entries(
+    //         this.hutbeByDate.reduce((hutbe, hutba) => {
+    //             const postedDate = hutba.postedDate
+    //             hutbe[postedDate] = hutbe[postedDate] ? [...hutbe[postedDate], hutba] : [hutba];
+    //             return hutbe;
+    //         }, {} as {[key: string]: Hutba[]})
+    //     )
+    // }
 
     loadHutbe = async () => {
         this.setLoadingInitial(true);
@@ -61,15 +71,6 @@ export default class HutbaStore {
                 this.setLoadingInitial(false);
             }
         }
-    }
-
-    private sethutba = (hutba: Hutba) => {
-        hutba.postedDate = hutba.postedDate.split('T')[0];
-        this.hutbaRegistry.set(hutba.id, hutba);
-    }
-
-    private getHutba = (id: string) => {
-        return this.hutbaRegistry.get(id);
     }
 
     setLoadingInitial = (state: boolean) => {
@@ -127,5 +128,14 @@ export default class HutbaStore {
                 this.loading = false;
             })
         }
+    }
+
+    private sethutba = (hutba: Hutba) => {
+        hutba.postedDate = hutba.postedDate.split('T') [0];
+        this.hutbaRegistry.set(hutba.id, hutba);
+    }
+
+    private getHutba = (id: string) => {
+        return this.hutbaRegistry.get(id);
     }
 }

@@ -6,6 +6,12 @@ namespace Persistence
     {
         public static async Task SeedData(DataContext context)
         {
+            await SeedHutbas(context);
+            await SeedVijesti(context);
+        }
+
+        private static async Task SeedHutbas(DataContext context)
+        {
             if (context.Hutbas.Any()) return;
             
             var hutbe = new List<Hutba>
@@ -104,6 +110,79 @@ namespace Persistence
 
             await context.Hutbas.AddRangeAsync(hutbe);
             await context.SaveChangesAsync();
+        }
+
+        private static async Task SeedVijesti(DataContext context)
+        {
+            if (context.Vijestis.Any()) return;
+
+            var vijesti = new List<Vijesti>
+            {
+                new Vijesti
+                {
+                    Title = "Kurs sufare i Kur’ana za zene",
+                    Content = "Esselamu alejkum 👋 Sutra pocinjemo sa nasim kursem sufare za zene (ucenja arapskog pisma) kako bismo se opismenile za ucenje najljepse i najkorisnije knjige, Njegovog govora upucenog nama kako bismo lakse kao vjernice razumjele, zivjele i odgajale nasu djecu po pravilima Kur’ana❤️. Kur’an je poslan kao milost nama, nas Poslanik je podnio veliki trud primajuci Objavu te mu je zivot bio ugrozen zeleci covjecanstvu dostaviti spas-Islam.❤️ Drage sestre najmanje sto mi mozemo je zahvaliti sto smo spoznale nasu vjeru a potom potruditi se da Sufaru naucimo kako bi bile pismene da Kur’an ucimo a zato nas ceka nagrada kod Gospodara svjetova koju mi dokuciti ne mozemo😇 🌸Bujrum iskoristite mladost prije starosti i sposobnost da ucite i spoznajete nova znanja🫶",
+                    Author = "Jusuf Horozovic",
+                    PictureUrl = "https://biznorrkoping.com/storage/app/uploads/public/66e/e7c/168/66ee7c16834ab708344140.jpg",
+                    Category = "Džemat",
+                    PublishedDate = DateTime.UtcNow,
+                    Views = 0,
+                    IsFeatured = true,
+                    Tags = new string[] {"Kur’an", "Kurs", "žene", "sufara"}
+                },
+                new Vijesti
+                {
+                    Title = "Upis u mekteb",
+                    Content = "Kad u mekteb ja polazim<br> Radostan i cista srca Sa abdestom i bismilom<br> Na licu mi sreca blista<br> Mnogo toga jos da saznam<br> Moje srce bas se trudi<br> Jer nas vjera Islam uci<br> Da budemo bolji ljudi<br> ❤️Da Allah nagradi sve odgovorne roditelje koji ste danas uzeli vasu djecu za rukice i prioritirali upis u mekteb a time im pokazali i naucili ih da dzamija i mekteb imaju vazno mjesto u njihovim zivotima🥰<br> 👋Roditelji koji nisu iz opravdanih razloga mogli danas, upis je i iducu subotu pa bujrum❤️",
+                    Author = "Jusuf Horozovic",
+                    PictureUrl = "https://biznorrkoping.com/storage/app/uploads/public/66c/a3a/efa/66ca3aefa7ed2249788522.jpg",
+                    Category = "Mekteb",
+                    PublishedDate = DateTime.UtcNow,
+                    Views = 0,
+                    IsFeatured = true,
+                    Tags = new string[] {"Kur’an", "Mekteb", "Dijeca", "Upis", "Ucenje"}
+                },
+                new Vijesti
+                {
+                    Title = "Kurban 2025",
+                    Content = "Uzvišeni Allah u Kur’anu veli:<br> „Mi smo ti, uistinu, mnogō dobro dali, pa, klanjaj radi Gospodara svoga i kurban kolji, onaj koji tebe mrzi sigurno će on bez pomena ostati!“ (El-Kevser, 1-3.)<br> „Do Allaha neće doprijeti meso njihovo i krv njihova, ali će Mu stići iskreno učinjena dobra djela vaša; tako vam ih je potčinio da biste Allaha veličali zato što vas je uputio. I obraduj one koji dobra djela čine!“ (El-Hadždž, 37).<br> Draga braćo i poštovane sestre!<br> Kurban je čin ibadeta i vjerski propis utemeljen u Kur’anu i sunnetu.<br> Aktivnost na koju bez sumnje možemo biti ponosni jeste i akcija „Kurbani“, koju koordinira i provodi Islamska zajednica u Bosni i Hercegovini.",
+                    Author = "Jusuf Horozovic",
+                    PictureUrl = "https://biznorrkoping.com/storage/app/uploads/public/664/34d/65b/66434d65b59f4290939748.jpg",
+                    Category = "Vakuf",
+                    PublishedDate = DateTime.UtcNow,
+                    Views = 0,
+                    IsFeatured = false,
+                    Tags = new string[] {"Kurban", "Bajram", "Vakuf"}
+                },
+                new Vijesti
+                {
+                    Title = "Maternji jezik",
+                    Content = "Esselamu alejkum<br> I ove smo subote ucili nas maternji jezik a uz to kroz pricitanu pricu naucili jedano novo ponasanje naseg Poslanika koje cemo i mi pokusati uvesti u nasu praksu.<br> Cilj ovih casova je da djeca slusaju pricu na bosanskom jeziku ali i uce o svojoj vjeri i lijepom ponasanju💫",
+                    Author = "Jusuf Horozovic",
+                    PictureUrl = "https://biznorrkoping.com/storage/app/uploads/public/663/a0d/c3a/663a0dc3af03d025471457.jpg",
+                    Category = "Mekteb",
+                    PublishedDate = DateTime.UtcNow,
+                    Views = 0,
+                    IsFeatured = false,
+                    Tags = new string[] {"Maternji jezik", "Ucenje", "Druzenje", "Dijeca"}
+                },
+                new Vijesti
+                {
+                    Title = "Posjeta džematu Linköping",
+                    Content = "Esselamu alejkum<br> Juce je grupa od 25 zena iz naseg dzemata posjetila susjedni dzemat Bošnjačka islamska zajednica Linköping te tom prilikom prisustvovala nastavku seminara sa hfz. Hidajetom Mahalbasic na temu ” Biti zena inspiracija drugima”<br> Mnogo novih znanja te osvjestenih spoznaja koje smo imale ali nismo znale alate za upravljanje istima te nam je nasa gosca svojom radionicom pomogla u tome.<br> Lijep domacinski docek dzemata Linköping na cemu im se zahvaljujemo i cinimo dovu da ih Allah pomogne u daljem radu🤲",
+                    Author = "Jusuf Horozovic",
+                    PictureUrl = "https://biznorrkoping.com/storage/app/uploads/public/65e/61c/e47/65e61ce4735f8238817933.jpg",
+                    Category = "Džemat",
+                    PublishedDate = DateTime.UtcNow,
+                    Views = 0,
+                    IsFeatured = true,
+                    Tags = new string[] {"Džemat", "Zene", "Druzenje", "Linköping", "Norrköping"}
+                },
+            };
+
+            await context.Vijestis.AddRangeAsync(vijesti);
+            await context.SaveChangesAsync();
+
         }
     }
 }
